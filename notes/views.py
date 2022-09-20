@@ -1,22 +1,26 @@
 from django.shortcuts import render, redirect
 from .models import Note
 
+# CRUD - Create, Read, Update, Delete
 
-def index(request):
-    if request.method == 'POST':
-        title = request.POST.get('titulo')
-        content = request.POST.get('detalhes')
-        note = Note.objects.create(title=title, content=content)
-        if request.POST.__contains__('create'):
-            note.save()
-        
-        if request.POST.__contains__('id'):
-            note_delete_id = request.POST.get('id')
-            note = Note(id=note_delete_id, title=title, content=content)
-            if request.POST.__contains__('delete'):
-                note.delete()
-                
-        return redirect('index')
-    else:
-        all_notes = Note.objects.all()
-        return render(request, 'notes/index.html', {'notes': all_notes})
+def create(request):
+    title = request.POST.get('titulo')
+    content = request.POST.get('detalhes')
+    note = Note.objects.create(title=title, content=content)
+    note.save()
+    return redirect('read')
+
+def read(request):
+    all_notes = Note.objects.all()
+    return render(request, 'notes/index.html', {'notes': all_notes})
+
+def update(request):
+    pass # TODO: Implementar a função update
+
+def delete(request, note_id):
+    try:
+        note_selected = Note.objects.get(id=int(note_id))
+        note_selected.delete()
+    except Note.DoesNotExist:
+        pass
+    return redirect('read')
