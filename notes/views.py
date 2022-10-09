@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import Note
 
-# CRUD - Create(√), Read(√), Update(), Delete(√)
+# CRUD - Create, Read, Update, Delete
 
 def index(request):
     if request.method == 'POST':
-        title = request.POST.get('titulo')
-        content = request.POST.get('detalhes')
+        title = request.POST.get('title')
+        content = request.POST.get('content')
         tag = request.POST.get('tag')
         note_id = request.POST.get('id')
         if 'criar' in request.POST:
