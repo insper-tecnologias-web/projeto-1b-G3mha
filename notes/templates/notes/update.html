@@ -5,36 +5,33 @@
 <img src="{% static 'notes/img/logo-getit.png' %}" />
 <p>Como o Post-it, mas com outro verbo</p>
 
+<p>Você está na página de edição de notas.</p>
+<p>Caso queira alterar alguma parte de sua nota, preencha a caixa correspondente.</p>
+<p>O que não quiser alterar, deixe sem preencher.</p>
+
 <form method="post">
   {% csrf_token %}
-  <label for="titulo">Título</label>
-  <input id="titulo" type="text" name="titulo" />
-  <label for="detalhes">Detalhes</label>
-  <textarea id="detalhes" name="detalhes"></textarea>
+  <label for="title">Título</label>
+  <input id="title" type="text" name="title" />
   <label for="tag">Tag</label>
   <input id="tag" type="text" name="tag" />
+  <label for="content">Detalhes</label>
+  <textarea id="content" name="content"></textarea>
   <input type="submit" name="criar" value="Criar" />
 </form>
 
 <ul>
   {% for note in notes %}
     <li>
-      <h3>{{ note.title }}</h3>
-      <h4>{{ note.tag }}</h4>
-      <p>{{ note.content }}</p>
-      <form method="post" id="editar">
+      <form method="post">
         {% csrf_token %}
-        <input type="hidden" name="title" value="{{ note.title }}" />
-        <input type="hidden" name="content" value="{{ note.content }}" />
-        <input type="hidden" name="id" value="{{ note.id }}" />
-        <input type="submit" name="editar" value="Editar" />
-      </form>
-      <form method="post" id="deletar">
-        {% csrf_token %}
-        <input type="hidden" name="title" value="{{ note.title }}" />
-        <input type="hidden" name="content" value="{{ note.content }}" />
-        <input type="hidden" name="id" value="{{ note.id }}" />
-        <input type="submit" name="deletar" value="Deletar" />
+        <label for="title">Título: {{ note.title }}</label>
+        <input id="title" type="text" name="title" />
+        <label for="tag">Tag: {{ note.tag }}</label>
+        <input id="tag" type="text" name="tag" />
+        <label for="content">Detalhes: {{ note.content }}</label>
+        <textarea id="content" name="content"></textarea>
+        <input type="submit" name="alterado" value="Alterar" />
       </form>
     </li>
   {% endfor %}
