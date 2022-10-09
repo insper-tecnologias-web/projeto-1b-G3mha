@@ -21,20 +21,23 @@
       {% for note in notes %}
       <div class="card">
           <h3 class="card-title">{{ note.title }}</h3>
-          <h4>{{ note.tag }}</h4>
           <div class="card-content"><p>{{ note.content }}</p></div>
-          <form method="post" id="editar">
-            {% csrf_token %}
-            <input type="hidden" name="title" value="{{ note.title }}" />
-            <input type="hidden" name="content" value="{{ note.content }}" />
-            <input type="hidden" name="id" value="{{ note.id }}" />
-            <input class="btn" type="submit" name="editar" value="Editar" />
-          </form>
-          <form method="post" id="deletar">
-            {% csrf_token %}
-            <input type="hidden" name="id" value="{{ note.id }}" />
-            <input class="btn" type="submit" name="deletar" value="Deletar" />
-          </form>
+          <div class=""></div>
+          <h4 class="card-tag">{{ note.tag }}</h4>
+          <div class="card-btn">
+            <form method="post" id="editar">
+              {% csrf_token %}
+              <input type="hidden" name="title" value="{{ note.title }}" />
+              <input type="hidden" name="content" value="{{ note.content }}" />
+              <input type="hidden" name="id" value="{{ note.id }}" />
+              <input class="card-btn" src="https://img.icons8.com/material-rounded/24/000000/filled-trash.png" type="image" name="editar" value="Editar" />
+            </form>
+            <form method="post" id="deletar">
+              {% csrf_token %}
+              <input type="hidden" name="id" value="{{ note.id }}" />
+              <input class="card-btn" src="https://img.icons8.com/ios-glyphs/30/000000/edit--v1.png" type="image" name="deletar" value="Deletar" />
+            </form>
+          </div>
       </div>
       {% endfor %}
   </div>
