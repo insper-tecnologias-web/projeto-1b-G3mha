@@ -26,10 +26,12 @@ def index(request):
         return render(request, 'notes/index.html', {'notes': all_notes})
 
 def update(request):
-    new_quantity = int(quantity)
-    new_quantity = int(quantity) - 1
-    if new_quantity < 0:
-        new_quantity = 0
-    print('#' * 50)
-    Cadastro.objects.filter(name=name).update(quantity=new_quantity)
+    note_id = request.POST.get('id')
+    note_selected = Note.objects.get(id=int(note_id))
+    if (request.method == 'POST') and ('alterado' in request.POST):
+        Note.objects.filter(name=name).update(quantity=new_quantity) # TODO
+    else:
+        note_selected = Note.objects.filter(id=int(note_id))
+        return render(request, 'notes/update.html', {'notes': note_selected})
+
     return redirect('index')
