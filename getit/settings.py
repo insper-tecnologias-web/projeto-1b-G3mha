@@ -78,12 +78,11 @@ WSGI_APPLICATION = 'getit.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://localhost/getit?user=getituser&password=tron',
+        default='postgresql://localhost/getit?user=getituser&password=getitsenha',
         conn_max_age=600,
         ssl_require=not DEBUG
     )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
