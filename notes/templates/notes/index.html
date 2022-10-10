@@ -27,8 +27,6 @@
           <div class="card-btn">
             <form method="post" id="editar">
               {% csrf_token %}
-              <input type="hidden" name="title" value="{{ note.title }}" />
-              <input type="hidden" name="content" value="{{ note.content }}" />
               <input type="hidden" name="id" value="{{ note.id }}" />
               <input type="submit" name="editar" value="Editar" />
             </form>
