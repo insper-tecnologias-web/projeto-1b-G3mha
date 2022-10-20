@@ -25,20 +25,22 @@ def index(request):
         all_notes = Note.objects.all()
         return render(request, 'notes/index.html', {'notes': all_notes})
 
-def update(request):
-    note_id = request.POST.get('id')
+def update(request, note_id):
     if (request.method == 'POST') and ('alterado' in request.POST):
-        note_selected = Note.objects.get(id=int(note_id))
-        title = request.POST.get('title')
+        title, content, tag = request.POST.get('title'), request.POST.get('content'), request.POST.get('tag')
+        new_values = {}
         if not(title == ''):
-            note_selected.update(title=title)
-        content = request.POST.get('content')
+            new_values['title'] = title
         if not(content == ''):
-            note_selected.update(content=content)
-        tag = request.POST.get('tag')
+            new_values['content'] = content
         if not(tag == ''):
-            note_selected.update(tag=tag)
+            new_values['tag'] = tag
+        note_selected = Note.objects.get(id=int(note_id))
+        for key, value in new_values.items():
+            setattr(note_selected, key, value)
+        note_selected.save()
         return redirect('index')
     else:
         note_selected = Note.objects.filter(id=int(note_id))
         return render(request, 'notes/update.html', {'notes': note_selected})
+
